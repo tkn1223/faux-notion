@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
-import SideBar from './components/SideBar';
-import { SearchModal } from './components/SearchModal';
+import { Outlet } from "react-router-dom";
+import { SearchModal } from "./components/SearchModal";
+import SideBar from "./components/SideBar";
 
 const Layout = () => {
   return (

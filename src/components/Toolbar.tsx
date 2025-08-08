@@ -1,5 +1,5 @@
-import { Note } from '@/modules/notes/note';
-import TextAreaAutoSize from 'react-textarea-autosize';
+import { type Note } from "@/modules/notes/note.entity.ts";
+import TextareaAutosize from "react-textarea-autosize";
 
 interface TitleInputProps {
   initialData: Note;
@@ -9,8 +9,8 @@ interface TitleInputProps {
 export function TitleInput({ initialData, onTitleChange }: TitleInputProps) {
   return (
     <div className="pl-[54px] group relative">
-      <TextAreaAutoSize
-        className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F 
+      <TextareaAutosize
+        className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F]
         resize-none"
       />
     </div>

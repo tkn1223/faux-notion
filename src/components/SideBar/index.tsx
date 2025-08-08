@@ -1,8 +1,8 @@
-import { FC } from 'react';
-import { Item } from './Item';
-import { NoteList } from '../NoteList';
-import UserItem from './UserItem';
-import { Plus, Search } from 'lucide-react';
+import { Plus, Search } from "lucide-react";
+import { type FC } from "react";
+import { NoteList } from "../NoteList";
+import { Item } from "./Item";
+import UserItem from "./UserItem";
 
 type Props = {
   onSearchButtonClicked: () => void;
@@ -16,12 +16,12 @@ const SideBar: FC<Props> = ({ onSearchButtonClicked }) => {
           <div>
             <UserItem
               user={{
-                id: 'test',
-                aud: 'test',
-                email: 'test@gmail.com',
-                user_metadata: { name: 'testさん' },
+                id: "test",
+                aud: "test",
+                email: "test@gmail.com",
+                user_metadata: { name: "testさん" },
                 app_metadata: {},
-                created_at: 'test',
+                created_at: "test",
               }}
               signout={() => {}}
             />

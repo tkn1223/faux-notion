@@ -1,14 +1,14 @@
-import { ChevronsLeftRight, LogOut } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { User } from '@supabase/supabase-js';
-import { FC } from 'react';
-import { Item } from './Item';
+} from "@/components/ui/dropdown-menu";
+import { type User } from "@supabase/supabase-js";
+import { ChevronsLeftRight, LogOut } from "lucide-react";
+import { type FC } from "react";
+import { Item } from "./Item";
 
 type Props = {
   user: User;
