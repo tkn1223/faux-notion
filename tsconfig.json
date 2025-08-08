@@ -3,5 +3,14 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],  
+  // パスエイリアス設定（srcフォルダを@で表現）
+  // 前：import Button from '../../components/ui/Button';
+  // 後：import Button from '@/components/ui/Button';
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
 }
