@@ -1,8 +1,13 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { SearchModal } from "./components/SearchModal";
 import SideBar from "./components/SideBar";
+import { useCurrentUserStore } from "./modules/auth/current-user.state";
 
 const Layout = () => {
+  const { currentUser } = useCurrentUserStore();
+
+  if (currentUser == null) return <Navigate to="/signin" />;
+
   return (
     <div className="h-full flex">
       <SideBar onSearchButtonClicked={() => {}} />
