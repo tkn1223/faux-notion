@@ -21,7 +21,7 @@ export function Item({
   return (
     <div
       className={cn(
-        "group min-h-[27px] text-sm py-1 pr-3 w-full flex items-center text-gray-600 font-medium cursor-pointer hover:bg-neutral-200 transition-colors",
+        "group min-h-[27px] text-sm py-1 pr-3 w-full flex items-center text-gray-600 font-medium",
         isActive && "bg-neutral-200"
       )}
       onClick={onClick}

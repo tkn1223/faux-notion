@@ -24,10 +24,9 @@ export const noteRepository = {
       .select()
       .eq("user_id", userId)
       .order("created_at", { ascending: false });
-
     const { data } =
       parentDocumentId != null
-        ? await query.eq("parene_document", parentDocumentId)
+        ? await query.eq("parent_document", parentDocumentId)
         : await query.is("parent_document", null);
     return data;
   },

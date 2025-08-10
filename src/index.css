@@ -213,4 +213,11 @@ button:focus-visible {
   body {
     @apply bg-background text-foreground;
   }
+
+  /* クリック可能な要素にカーソルポインターを適用 */
+  [role="button"],
+  button,
+  .clickable {
+    cursor: pointer;
+  }
 }
