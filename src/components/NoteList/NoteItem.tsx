@@ -7,6 +7,7 @@ import {
 import { cn } from "@/lib/utils";
 import type { Note } from "@/modules/notes/note.entity";
 import {
+  ChevronDown,
   ChevronRight,
   FileIcon,
   MoreHorizontal,
@@ -40,7 +41,10 @@ export function NoteItem({
   const [isHovered, setIsHovered] = useState(false);
 
   const getIcon = () => {
-    return isHovered ? ChevronRight : FileIcon;
+    // expandedがtrueの場合はChevronDownを返す
+    // それ以外の場合はisHoveredがtrueの場合はChevronRightを返す
+    // それ以外の場合はFileIconを返す（デフォルトはFileIcon）
+    return expanded ? ChevronDown : isHovered ? ChevronRight : FileIcon;
   };
 
   const menu = (
