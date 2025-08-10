@@ -17,4 +17,18 @@ export const noteRepository = {
     if (error != null) throw new Error(error.message);
     return data;
   },
+
+  async find(userId: string, parentDocumentId?: number) {
+    const query = supabase
+      .from("notes")
+      .select()
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
+
+    const { data } =
+      parentDocumentId != null
+        ? await query.eq("parene_document", parentDocumentId)
+        : await query.is("parent_document", null);
+    return data;
+  },
 };

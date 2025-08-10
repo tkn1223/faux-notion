@@ -1,14 +1,16 @@
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
-import { FileIcon, MoreHorizontal, Plus, Trash } from 'lucide-react';
-import { Item } from '../SideBar/Item';
-import { cn } from '@/lib/utils';
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import type { Note } from "@/modules/notes/note.entity";
+import { FileIcon, MoreHorizontal, Plus, Trash } from "lucide-react";
+import { Item } from "../SideBar/Item";
 
 interface Props {
+  note: Note;
   expanded?: boolean;
   layer?: number;
   isSelected?: boolean;
@@ -19,6 +21,7 @@ interface Props {
 }
 
 export function NoteItem({
+  note,
   onClick,
   layer = 0,
   expanded = false,
@@ -28,14 +31,14 @@ export function NoteItem({
   onExpand,
 }: Props) {
   const menu = (
-    <div className={cn('ml-auto flex items-center gap-x-2')}>
+    <div className={cn("ml-auto flex items-center gap-x-2")}>
       <DropdownMenu>
         <DropdownMenuTrigger onClick={(e) => e.stopPropagation()}>
           <div
-            className="h-full ml-auto rounded-sm hover:bg-neutral-300"
+            className="h-full ml-auto rounded-sm hover:bg-neutral-300 cursor-pointer p-1 transition-colors"
             role="button"
           >
-            <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
+            <MoreHorizontal className="w-4 h-4 text-gray-600" />
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent
@@ -51,11 +54,11 @@ export function NoteItem({
         </DropdownMenuContent>
       </DropdownMenu>
       <div
-        className="h-full ml-auto rounded-sm hover:bg-neutral-300"
+        className="h-full ml-auto rounded-sm hover:bg-neutral-300 cursor-pointer p-1 transition-colors"
         role="button"
         onClick={onCreate}
       >
-        <Plus className="w-4 h-4 text-muted-foreground" />
+        <Plus className="w-4 h-4 text-gray-600" />
       </div>
     </div>
   );
@@ -64,10 +67,11 @@ export function NoteItem({
     <div
       onClick={onClick}
       role="button"
-      style={{ paddingLeft: layer != null ? `${layer * 12 + 12}px` : '12px' }}
+      className="cursor-pointer"
+      style={{ paddingLeft: layer != null ? `${layer * 12 + 12}px` : "12px" }}
     >
       <Item
-        label={'test'}
+        label={note.title ?? "無題"}
         icon={FileIcon}
         onIconClick={onExpand}
         trailingItem={menu}

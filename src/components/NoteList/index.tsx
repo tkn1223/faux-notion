@@ -1,5 +1,6 @@
-import { cn } from '@/lib/utils';
-import { NoteItem } from './NoteItem';
+import { cn } from "@/lib/utils";
+import { useNoteStore } from "@/modules/notes/note.state";
+import { NoteItem } from "./NoteItem";
 
 interface NoteListProps {
   layer?: number;
@@ -7,13 +8,14 @@ interface NoteListProps {
 }
 
 export function NoteList({ layer = 0, parentId }: NoteListProps) {
-  const notes = [{}];
+  const noteStore = useNoteStore();
+  const notes = noteStore.getAll();
   return (
     <>
       <p
         className={cn(
-          `hidden text-sm font-medium text-muted-foreground/80`,
-          layer === 0 && 'hidden'
+          `text-sm font-medium text-gray-500`,
+          layer === 0 && "hidden"
         )}
         style={{ paddingLeft: layer ? `${layer * 12 + 25}px` : undefined }}
       >
@@ -22,7 +24,7 @@ export function NoteList({ layer = 0, parentId }: NoteListProps) {
       {notes.map((note) => {
         return (
           <div key={note.id}>
-            <NoteItem layer={layer} />
+            <NoteItem note={note} layer={layer} />
           </div>
         );
       })}

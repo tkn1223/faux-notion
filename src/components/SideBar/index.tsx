@@ -1,3 +1,6 @@
+import { useCurrentUserStore } from "@/modules/auth/current-user.state";
+import { noteRepository } from "@/modules/notes/note.repository";
+import { useNoteStore } from "@/modules/notes/note.state";
 import { Plus, Search } from "lucide-react";
 import { type FC } from "react";
 import { NoteList } from "../NoteList";
@@ -9,9 +12,17 @@ type Props = {
 };
 
 const SideBar: FC<Props> = ({ onSearchButtonClicked }) => {
+  const { currentUser } = useCurrentUserStore();
+  const noteStore = useNoteStore();
+
+  const createNote = async () => {
+    const newNote = await noteRepository.create(currentUser!.id, {});
+    noteStore.set([newNote]);
+  };
+
   return (
     <>
-      <aside className="group/sidebar h-full bg-neutral-100 overflow-y-auto relative flex flex-col w-60">
+      <aside className="group/sidebar h-screen bg-neutral-100 overflow-y-auto relative flex flex-col w-60">
         <div>
           <div>
             <UserItem
@@ -29,7 +40,7 @@ const SideBar: FC<Props> = ({ onSearchButtonClicked }) => {
           </div>
           <div className="mt-4">
             <NoteList />
-            <Item label="ノートを作成" icon={Plus} />
+            <Item label="ノートを作成" icon={Plus} onClick={createNote} />
           </div>
         </div>
       </aside>

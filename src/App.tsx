@@ -29,7 +29,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="h-full">
+      <div className="h-screen">
         <Routes>
           {/* 入れ子で表示することで、共通のレイアウトを適用できる */}
           <Route path="/" element={<Layout />}>
