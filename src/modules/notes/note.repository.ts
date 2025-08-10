@@ -30,4 +30,14 @@ export const noteRepository = {
         : await query.is("parent_document", null);
     return data;
   },
+
+  async findOne(userId: string, id: number) {
+    const { data } = await supabase
+      .from("notes")
+      .select()
+      .eq("id", id)
+      .eq("user_id", userId)
+      .single();
+    return data;
+  },
 };
