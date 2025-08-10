@@ -87,8 +87,7 @@ export function NoteItem({
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
       role="button"
-      // className="cursor-pointer"
-      style={{ paddingLeft: layer != null ? `${layer * 12 + 12}px` : "12px" }}
+      style={{ paddingLeft: layer != null ? `${layer * 20 + 12}px` : "12px" }}
     >
       <Item
         label={note.title ?? "無題"}
