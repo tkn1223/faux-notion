@@ -32,6 +32,7 @@ export const authRepository = {
     };
   },
 
+  // ログイン中のユーザーを取得
   async getCurrentUser() {
     const { data, error } = await supabase.auth.getSession();
     if (error != null) throw new Error(error.message);
