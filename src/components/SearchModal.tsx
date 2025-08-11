@@ -6,7 +6,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command';
+} from "@/components/ui/command";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -26,7 +26,7 @@ export function SearchModal({
   return (
     <CommandDialog open={isOpen} onOpenChange={onClose}>
       <Command shouldFilter={false}>
-        <CommandInput placeholder={'キーワードで検索'} />
+        <CommandInput placeholder={"キーワードで検索"} />
         <CommandList>
           <CommandEmpty>条件に一致するノートがありません</CommandEmpty>
           <CommandGroup>
