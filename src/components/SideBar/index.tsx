@@ -1,3 +1,4 @@
+import { authRepository } from "@/modules/auth/auth.repository";
 import { useCurrentUserStore } from "@/modules/auth/current-user.state";
 import { noteRepository } from "@/modules/notes/note.repository";
 import { useNoteStore } from "@/modules/notes/note.state";
@@ -14,13 +15,22 @@ type Props = {
 
 const SideBar: FC<Props> = ({ onSearchButtonClicked }) => {
   const navigate = useNavigate();
-  const { currentUser } = useCurrentUserStore();
+  const currentUserStore = useCurrentUserStore();
   const noteStore = useNoteStore();
 
   const createNote = async () => {
-    const newNote = await noteRepository.create(currentUser!.id, {});
+    const newNote = await noteRepository.create(
+      currentUserStore.currentUser!.id,
+      {}
+    );
     noteStore.set([newNote]);
     navigate(`/note/${newNote.id}`);
+  };
+
+  const signout = async () => {
+    await authRepository.signout();
+    currentUserStore.set(undefined);
+    noteStore.clear();
   };
 
   return (
@@ -28,17 +38,7 @@ const SideBar: FC<Props> = ({ onSearchButtonClicked }) => {
       <aside className="group/sidebar h-screen bg-neutral-100 overflow-y-auto relative flex flex-col w-60">
         <div>
           <div>
-            <UserItem
-              user={{
-                id: "test",
-                aud: "test",
-                email: "test@gmail.com",
-                user_metadata: { name: "testさん" },
-                app_metadata: {},
-                created_at: "test",
-              }}
-              signout={() => {}}
-            />
+            <UserItem user={currentUserStore.currentUser!} signout={signout} />
             <Item label="検索" icon={Search} onClick={onSearchButtonClicked} />
           </div>
           <div className="mt-4">
