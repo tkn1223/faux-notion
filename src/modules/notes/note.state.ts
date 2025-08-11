@@ -21,11 +21,29 @@ export const useNoteStore = () => {
     });
   };
 
+  // 子供のノートを再帰的に抽出する
+  const deleteNote = (id: number) => {
+    const findChildrenIds = (parentId: number): number[] => {
+      const childrenIds = notes
+        .filter((note) => note.parent_document === parentId)
+        .map((child) => child.id);
+      return childrenIds.concat(
+        ...childrenIds.map((childId) => findChildrenIds(childId))
+      );
+    };
+    const childrenIds = findChildrenIds(id);
+    // 削除対象(idとchildrenIds)を削除する
+    setNotes((oldNotes) =>
+      oldNotes.filter((note) => ![...childrenIds, id].includes(note.id))
+    );
+  };
+
   const getOne = (id: number) => notes.find((note) => note.id === id);
 
   return {
     getAll: () => notes,
     getOne,
     set,
+    delete: deleteNote,
   };
 };
