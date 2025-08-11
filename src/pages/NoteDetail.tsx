@@ -36,6 +36,7 @@ const NoteDetail = () => {
     noteStore.set([updateNote]);
     return updateNote;
   };
+
   if (isLoading) return <div />;
   if (note == null) return <div>note is not existed</div>;
 
@@ -46,7 +47,10 @@ const NoteDetail = () => {
           initialData={note}
           onTitleChange={(title) => updateNote(id, { title })}
         />
-        <Editor />
+        <Editor
+          initialContent={note.content}
+          onChange={(content) => updateNote(id, { content })}
+        />
       </div>
     </div>
   );

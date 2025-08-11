@@ -17,7 +17,11 @@ function Editor({ onChange, initialContent }: EditorProps) {
 
   return (
     <div>
-      <BlockNoteView editor={editor} theme="light" />
+      <BlockNoteView
+        editor={editor}
+        onChange={() => onChange(JSON.stringify(editor.document))}
+        theme="light"
+      />
     </div>
   );
 }
