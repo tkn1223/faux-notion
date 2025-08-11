@@ -31,6 +31,17 @@ export const noteRepository = {
     return data;
   },
 
+  async findByKeyword(userId: string, keyword: string) {
+    const { data } = await supabase
+      .from("notes")
+      .select()
+      .eq("user_id", userId)
+      // キーワードの前後に%を付与することで、キーワードの前後に任意の文字を許容する
+      .or(`title.ilike.%${keyword}%,content.ilike.%${keyword}%`)
+      .order("created_at", { ascending: false });
+    return data;
+  },
+
   async findOne(userId: string, id: number) {
     const { data } = await supabase
       .from("notes")
