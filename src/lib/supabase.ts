@@ -11,6 +11,7 @@ export const supabase = createClient(
   import.meta.env.VITE_SUPABASE_API_KEY
 );
 
+// 同時に複数のユーザーがノートを編集する場合に、ノートの変更をリアルタイムで取得する
 export const subscribe = (
   userId: string,
   callback: (payload: RealtimePostgresChangesPayload<Note>) => void
