@@ -1,3 +1,4 @@
+import { subscribe, unsubscribe } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { SearchModal } from "./components/SearchModal";
@@ -17,7 +18,22 @@ const Layout = () => {
 
   useEffect(() => {
     fetchNotes();
+    const channel = subscribeNote();
+    return () => {
+      unsubscribe(channel!);
+    };
   }, []);
+
+  const subscribeNote = () => {
+    if (currentUser == null) return;
+    return subscribe(currentUser!.id, (payload) => {
+      if (payload.eventType === "INSERT" || payload.eventType === "UPDATE") {
+        noteStore.set([payload.new]);
+      } else if (payload.eventType === "DELETE") {
+        noteStore.delete(payload.old.id!);
+      }
+    });
+  };
 
   const fetchNotes = async () => {
     setIsLoading(true);
