@@ -4,16 +4,22 @@ import { noteRepository } from "@/modules/notes/note.repository";
 import { useNoteStore } from "@/modules/notes/note.state";
 import { Plus } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const { currentUser } = useCurrentUserStore();
   const noteStore = useNoteStore();
 
   const createNote = async () => {
-    const newNote = await noteRepository.create(currentUser!.id, { title });
+    const noteTitle = title.trim() || "無題";
+    const newNote = await noteRepository.create(currentUser!.id, {
+      title: noteTitle,
+    });
     noteStore.set([newNote]);
     setTitle("");
+    navigate(`/note/${newNote.id}`);
   };
 
   return (
