@@ -40,4 +40,14 @@ export const noteRepository = {
       .single();
     return data;
   },
+
+  async update(id: number, note: { title?: string; content?: string }) {
+    const { data } = await supabase
+      .from("notes")
+      .update(note)
+      .eq("id", id)
+      .select()
+      .single();
+    return data;
+  },
 };
