@@ -36,9 +36,39 @@ export const noteRepository = {
       .from("notes")
       .select()
       .eq("user_id", userId)
-      // キーワードの前後に%を付与することで、キーワードの前後に任意の文字を許容する
-      .or(`title.ilike.%${keyword}%,content.ilike.%${keyword}%`)
       .order("created_at", { ascending: false });
+
+    // キーワード検索を実行
+    if (data) {
+      const keywordLower = keyword.toLowerCase();
+      return data.filter((note) => {
+        // titleでキーワードが一致するかチェック（部分一致）
+        if (note.title?.toLowerCase().includes(keywordLower)) return true;
+
+        // contentでキーワードが一致するかチェック
+        if (note.content) {
+          try {
+            const contentData = JSON.parse(note.content);
+            const textContent = contentData
+              .map(
+                (block: any) =>
+                  block.content?.map((item: any) => item.text).join("") || ""
+              )
+              .join(" ");
+
+            const contentLower = textContent.toLowerCase();
+            // 完全一致、部分一致をチェック
+            if (contentLower.includes(keywordLower)) return true;
+          } catch (e) {
+            // JSONパースに失敗した場合は元のcontentで検索
+            if (note.content.toLowerCase().includes(keywordLower)) return true;
+          }
+        }
+
+        return false;
+      });
+    }
+
     return data;
   },
 
